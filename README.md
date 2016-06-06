@@ -17,7 +17,7 @@ git clone https://gerrit.wikimedia.org/r/pywikibot/core.git ~/blackjack
 ```
 cd ~/blackjack
 ```
-Create a `user-config.py` file with the following data:
+Create a `user-config.py` file with the following data replacing 'blackjack' with the bot's name:
 ```python
 mylang = 'en'
 family = 'metakgp'
