@@ -22,9 +22,9 @@ One first needs to add the cookie, i.e. the jsession ID for visiting the `/Acad`
 
 1. Go to `Student Academic Activities (UG)` section in `Academic`. This gives you a cookie for accesing the `/Acad` route. You will not be able to mine the grades without this.
 
-2. Go to `https://erp.iitkgp.ernet.in/Acad/Pre_Registration/subject_grade_status.jsp?subno=XXXXXXX` and refresh the page while having the networking tab on Google Chrome's Inspector on. View the headers of the request to see what jsession ID you must input in `getNewGrades.py`. 
+2. Get the content of the `JSID#/Acad` named cookie set by ERP. It should be something like `43E........26F.worker3`. Update this in `getNewGrades.py`. 
 
-After that, one can mine grades of all courses using `python getNewGrades.py` and save it to `allCourses.json`
+After that, one can mine grades of all courses using `python getNewGrades.py` which saves the new grades to `newGrades.json`
 
 Run blackjack
 ```
