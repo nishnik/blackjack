@@ -11,7 +11,7 @@ Setup
 git clone https://gerrit.wikimedia.org/r/pywikibot/core.git ~/blackjack
 cd ~/blackjack
 ```
-Create a `user-config.py` file with the following data replacing 'blackjack' with the bot's name:
+Create a `user-config.py` file:
 ```python
 mylang = 'en'
 family = 'metakgp'
@@ -21,15 +21,15 @@ usernames['metakgp']['en'] = 'blackjack'
 * Generate user and family files.
 ```
 python generate_user_files.py
-python generate_family_files.py
+python generate_family_file.py https://wiki.metakgp.org/w/Main_Page metakgp
 ```
 One first needs to add the cookie, i.e. the jsession ID for visiting the `/Acad` route in erp. To obtain the jsession ID:
 
 1. Go to `Student Academic Activities (UG)` section in `Academic`. This gives you a cookie for accesing the `/Acad` route. You will not be able to mine the grades without this.
 
-2. Go to `https://erp.iitkgp.ernet.in/Acad/Pre_Registration/subject_grade_status.jsp?subno=XXXXXXX` and refresh the page while having the networking tab on Google Chrome's Inspector on. View the headers of the request to see what jsession ID you must input in `blackjack.py`. 
+2. Go to `https://erp.iitkgp.ernet.in/Acad/Pre_Registration/subject_grade_status.jsp?subno=XXXXXXX` and refresh the page while having the networking tab on Google Chrome's Inspector on. View the headers of the request to see what jsession ID you must input in `getNewGrades.py`. 
 
-After that, one can mine grades of all courses from `https://erp.iitkgp.ernet.in/Acad/Pre_Registration/subject_grade_status.jsp?subno=XXXXXXX` and save it to `allCourses.json`
+After that, one can mine grades of all courses using `python getNewGrades.py` and save it to `allCourses.json`
 
 Run blackjack
 ```
