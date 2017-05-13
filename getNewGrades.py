@@ -3,9 +3,10 @@ import re
 import json
 import progressbar
 import threading
+import urllib2
 
 cookie = '960B1D13D77A203857659227421093F6.worker2'
-NUM_THREADS = 8
+NUM_THREADS = 1
 
 def load(file):
     def convert(input):
@@ -24,11 +25,12 @@ def save(dic, name):
     with open(name + ".json", "w") as outfile:
         json.dump(dic, outfile)
 
-
+opener = urllib2.build_opener()
+opener.addheaders.append(('Cookie', 'JSESSIONID={}'.format(cookie)))
+        
 def getGrades(code):
-    b = check_output(
-        "curl 'https://erp.iitkgp.ernet.in/Acad/Pre_Registration/subject_grade_status.jsp?subno={}' -H 'DNT: 1' -H 'Accept-Encoding: gzip, deflate, sdch, br' -H 'Accept-Language: en-US,en;q=0.8' -H 'Upgrade-Insecure-Requests: 1' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' -H 'Cookie: JSESSIONID={}' -H 'Connection: keep-alive' --compressed".format(code,cookie), shell=True);
-    nums = re.findall('([A-Z\s]+)\(No. of Student\) : ([0-9]+)', b)
+    f = opener.open("https://erp.iitkgp.ernet.in/Acad/Pre_Registration/subject_grade_status.jsp?subno={}".format(code))
+    nums = re.findall('([A-Z\s]+)\(No. of Student\) : ([0-9]+)', f.read())
     if len(nums)!=0:
         return {str(d[0].strip()): int(d[1]) for d in nums}
     else:

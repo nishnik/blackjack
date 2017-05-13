@@ -22,7 +22,7 @@ def load(file):
     
 def genFormattedGradeText(courseCode,new=False):
     # If new course, then text for the grades is different.
-    stats = newGrades[courseCode]
+    stats = newGrades[courseCode]['grades']
     if new:
         text = u'\n| grades = {{Grades\n'+ ' '*11 +'| EX = '+ str(stats['EX']) +'\n'+ ' '*11 +'| A = '+ str(stats['A']) +'\n'+ ' '*11 +'| B = '+ str(stats['B']) +'\n'+ ' '*11 +'| C = '+ str(stats['C']) +'\n'+ ' '*11 +'| D = '+ str(stats['D']) +'\n'+ ' '*11 +'| P = '+ str(stats['P']) +'\n'+ ' '*11 +'| F = '+ str(stats['F']) +'\n'+ ' '*11 +'}}\n'
     else:
@@ -31,7 +31,7 @@ def genFormattedGradeText(courseCode,new=False):
 
 oldGrade = re.compile('{{Grades.*[0-9].* }}',re.DOTALL)
         
-def updateGrades(code):
+def updateGrades(code, allcourses):
     temp = allcourses[code]
     temp.text = oldGrade.sub(genFormattedGradeText(code),temp.text)
     temp.save(summary='Updated grades',botflag=True)
@@ -48,7 +48,7 @@ def insertBefore(data, pattern, newText):
 def genPageNewText(courseCode):
     return insertBefore(allcourses[courseCode].text,'\n}}',genFormattedGradeText(courseCode,True))
 
-def addGrades(courseCode):
+def addGrades(courseCode, allcourses):
     temp = allcourses[courseCode]
     temp.text = genPageNewText(courseCode)
     temp.save(summary='Added previous year\'s grade distribution',botflag=True)
@@ -69,16 +69,15 @@ def main():
     for code in alreadyExistingGrades:
         try:
             if not currentGradesOnWiki(code) == newGrades[code]:
-                updateGrades(code)
+                updateGrades(code, allcourses)
         except:
             pass
     
     # Add grades for new courses
     notExistingGrades = [i for i in allcourses if i in newGrades and i not in alreadyExistingGrades]
     for code in notExistingGrades:
-        addGrades(code)
+        addGrades(code, allcourses)
         
 if __name__ == '__main__':
     newGrades = load('newGrades.json')
-    main()    
-    
+    main()
