@@ -31,7 +31,7 @@ One first needs to add the cookie, i.e. the jsession ID for visiting the `/Acad`
 
 2. Go to `https://erp.iitkgp.ernet.in/Acad/Pre_Registration/subject_grade_status.jsp?subno=XXXXXXX` and refresh the page while having the networking tab on Google Chrome's Inspector on. View the headers of the request to see what jsession ID you must input in `blackjack.py`. 
 
-* Mine grades of all courses from `https://erp.iitkgp.ernet.in/Acad/Pre_Registration/subject_grade_status.jsp?subno=XXXXXXX` after signing in and save it to `allCourses.json`
+After that, one can mine grades of all courses from `https://erp.iitkgp.ernet.in/Acad/Pre_Registration/subject_grade_status.jsp?subno=XXXXXXX` and save it to `allCourses.json`
 
 * Run blackjack
 ```
