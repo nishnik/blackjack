@@ -21,8 +21,6 @@ usernames['metakgp']['en'] = 'blackjack'
 * Generate user and family files.
 ```
 python generate_user_files.py
-```
-```
 python generate_family_files.py
 ```
 One first needs to add the cookie, i.e. the jsession ID for visiting the `/Acad` route in erp. To obtain the jsession ID:
@@ -33,7 +31,7 @@ One first needs to add the cookie, i.e. the jsession ID for visiting the `/Acad`
 
 After that, one can mine grades of all courses from `https://erp.iitkgp.ernet.in/Acad/Pre_Registration/subject_grade_status.jsp?subno=XXXXXXX` and save it to `allCourses.json`
 
-* Run blackjack
+Run blackjack
 ```
 python blackjack.py
 ```
