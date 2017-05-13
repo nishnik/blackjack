@@ -11,6 +11,7 @@ Clone from the pywikibot library from wikimedia to  `blackjack`
 git clone https://gerrit.wikimedia.org/r/pywikibot/core.git blackjack
 cd blackjack
 git clone https://github.com/metakgp/blackjack.git
+mv blackjack/* .
 ```
 
 Generate family files.
