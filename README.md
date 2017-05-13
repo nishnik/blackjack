@@ -6,23 +6,18 @@ Info
 Setup
 =====
 
-* Clone from the pywikibot library from wikimedia to  `~/blackjack`
+Clone from the pywikibot library from wikimedia to  `blackjack`
 ```
-git clone https://gerrit.wikimedia.org/r/pywikibot/core.git ~/blackjack
-cd ~/blackjack
-```
-Create a `user-config.py` file:
-```python
-mylang = 'en'
-family = 'metakgp'
-usernames['metakgp']['en'] = 'blackjack'
+git clone https://gerrit.wikimedia.org/r/pywikibot/core.git blackjack
+cd blackjack
+git clone https://github.com/metakgp/blackjack.git
 ```
 
-* Generate user and family files.
+Generate family files.
 ```
-python generate_user_files.py
 python generate_family_file.py https://wiki.metakgp.org/w/Main_Page metakgp
 ```
+
 One first needs to add the cookie, i.e. the jsession ID for visiting the `/Acad` route in erp. To obtain the jsession ID:
 
 1. Go to `Student Academic Activities (UG)` section in `Academic`. This gives you a cookie for accesing the `/Acad` route. You will not be able to mine the grades without this.
