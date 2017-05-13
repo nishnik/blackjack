@@ -9,12 +9,6 @@ Setup
 * Clone from the pywikibot library from wikimedia to  `~/blackjack`
 ```
 git clone https://gerrit.wikimedia.org/r/pywikibot/core.git ~/blackjack
-```
-
-* Create a bot account on metakgp
-
-* Change to `~/blackjack`
-```
 cd ~/blackjack
 ```
 Create a `user-config.py` file with the following data replacing 'blackjack' with the bot's name:
@@ -31,10 +25,15 @@ python generate_user_files.py
 ```
 python generate_family_files.py
 ```
+One first needs to add the cookie, i.e. the jsession ID for visiting the `/Acad` route in erp. To obtain the jsession ID:
+
+# Go to `Student Academic Activities (UG)` section in `Academic`. This gives you a cookie for accesing the `/Acad` route. You will not be able to mine the grades without this.
+
+# Go to `https://erp.iitkgp.ernet.in/Acad/Pre_Registration/subject_grade_status.jsp?subno=XXXXXXX` and refresh the page while having the networking tab on Google Chrome's Inspector on. View the headers of the request to see what jsession ID you must input in `blackjack.py`. 
 
 * Mine grades of all courses from `https://erp.iitkgp.ernet.in/Acad/Pre_Registration/subject_grade_status.jsp?subno=XXXXXXX` after signing in and save it to `allCourses.json`
 
-* Run blackjack.py
+* Run blackjack
 ```
 python blackjack.py
 ```
