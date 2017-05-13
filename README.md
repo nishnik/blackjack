@@ -18,7 +18,7 @@ Generate family files.
 python generate_family_file.py https://wiki.metakgp.org/w/Main_Page metakgp
 ```
 
-One first needs to add the cookie, i.e. the jsession ID for visiting the `/Acad` route in erp. To obtain the jsession ID:
+One first needs to add the cookie from ERP to access the `/Acad` route. To obtain it:
 
 1. Go to `Student Academic Activities (UG)` section in `Academic`. This gives you a cookie for accesing the `/Acad` route. You will not be able to mine the grades without this.
 

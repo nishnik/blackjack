@@ -33,8 +33,7 @@ def getGrades(code):
         return {}
     
 def uniformizeGradesJSON(stats):
-    g = ['EX','A','B','C','D','P','F']
-    for i in g:
+    for i in ['EX','A','B','C','D','P','F']:
         if i not in stats:
             stats[i] = 0
     return stats
