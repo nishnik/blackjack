@@ -68,6 +68,10 @@ def main():
         i.start()
     for i in threads:
         i.join()
+
+    for i in newGrades:
+        newGrades[i]['grades'].pop('X',None)
+        
     save(newGrades, 'newGrades')
 
 if __name__ == '__main__':
