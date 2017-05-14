@@ -7,7 +7,7 @@ Setup
 =====
 
 Clone from the pywikibot library from wikimedia to  `blackjack`
-```
+```sh
 git clone https://gerrit.wikimedia.org/r/pywikibot/core.git blackjack
 cd blackjack
 git clone https://github.com/metakgp/blackjack.git
@@ -15,7 +15,7 @@ mv blackjack/* .
 ```
 
 Generate family files.
-```
+```sh
 python generate_family_file.py https://wiki.metakgp.org/w/Main_Page metakgp
 ```
 
@@ -28,6 +28,6 @@ One first needs to add the cookie from ERP to access the `/Acad` route. To obtai
 After that, one can mine grades of all courses using `python getNewGrades.py` which saves the new grades to `newGrades.json`
 
 Run blackjack
-```
+```sh
 python blackjack.py
 ```

@@ -31,7 +31,7 @@ def genFormattedGradeText(courseCode,new=False):
 
 oldGrade = re.compile('{{Grades.*[0-9].* }}',re.DOTALL)
         
-def updateGrades(code, allcourses):
+def updateGrades(code):
     temp = allcourses[code]
     temp.text = oldGrade.sub(genFormattedGradeText(code),temp.text)
     temp.save(summary='Updated grades',botflag=True)
@@ -48,7 +48,7 @@ def insertBefore(data, pattern, newText):
 def genPageNewText(courseCode):
     return insertBefore(allcourses[courseCode].text,'\n}}',genFormattedGradeText(courseCode,True))
 
-def addGrades(courseCode, allcourses):
+def addGrades(courseCode):
     temp = allcourses[courseCode]
     temp.text = genPageNewText(courseCode)
     temp.save(summary='Added previous year\'s grade distribution',botflag=True)
@@ -56,10 +56,12 @@ def addGrades(courseCode, allcourses):
 def main():
     cat = pywikibot.Category(site,'Category:Courses')
     gen = pagegenerators.CategorizedPageGenerator(cat)
+    global allcourses 
     allcourses = {i.title()[:7]:i for i in gen}
+    # allcourses = dict(allcourses.items()[0:20])
     # Update existing courses
-    print 'Fetching existing grades'
     alreadyExistingGrades = []
+    print 'Fetching existing grades'
     with progressbar.ProgressBar(max_value=len(allcourses)) as bar:
         for n, i in enumerate(allcourses):
             if re.findall(r'{{Grades.*[0-9].* }}',allcourses[i].text,re.DOTALL):
@@ -68,15 +70,14 @@ def main():
 
     for code in alreadyExistingGrades:
         try:
-            if not currentGradesOnWiki(code) == newGrades[code]:
-                updateGrades(code, allcourses)
+            if not currentGradesOnWiki(code) == newGrades[code]['grades']:
+                updateGrades(code)
         except:
             pass
-    
     # Add grades for new courses
     notExistingGrades = [i for i in allcourses if i in newGrades and i not in alreadyExistingGrades]
     for code in notExistingGrades:
-        addGrades(code, allcourses)
+        addGrades(code)
         
 if __name__ == '__main__':
     newGrades = load('newGrades.json')
