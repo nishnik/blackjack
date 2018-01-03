@@ -1,11 +1,11 @@
 from subprocess import check_output
 import re
 import json
-import progressbar
+from tqdm import tqdm
 import threading
 import urllib2
 
-cookie = '960B1D13D77A203857659227421093F6.worker2'
+cookie = 'F790E477E2993484C3780028C47AB1E6.worker2'
 NUM_THREADS = 1
 
 def load(file):
@@ -46,20 +46,18 @@ n = 0
 def main():
     newGrades = {}
     allcourses = load('courses.json').keys()
-    bar = progressbar.ProgressBar(max_value=len(allcourses))
     class ScrapingThread(threading.Thread): # Call it Iron-Man thread
         def __init__(self,courses):
             super(ScrapingThread, self).__init__()
             self.courses=courses
         def run(self):
             global n
-            for i in self.courses:
+            for i in tqdm(self.courses):
                 g = getGrades(i)
                 if len(g)!=0:
                     newGrades[i] = {'grades': uniformizeGradesJSON(g)}
-                    print i, newGrades[i]
+                    # print i, newGrades[i]
                 n += 1
-                bar.update(n)
     threads = []
     one_part_len = len(allcourses)/NUM_THREADS
     for i in range(NUM_THREADS):
